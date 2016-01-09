@@ -1,14 +1,35 @@
-<ul ng-repeat="bookmark in main.bookmarks">
-  <li>
-    <a href="{{bookmark.url}}">
-      {{bookmark.name}}
-    </a>
-    <span ng-click="main.removeBookmark(bookmark)">[delete]</span>
-  </li>
-</ul>
+<div class="container">
+  <h1>Bookmark Manager</h1>
 
-<form novalidate class="css-form">
-  Name: <input type="text" ng-model="main.form_bookmark.name" required /><br />
-  URL: <input type="text" ng-model="main.form_bookmark.url" required /><br />
-  <input type="submit" ng-click="main.addBookmark()" value="Add" />
-</form>
+  <form novalidate class="navbar-form">
+    <input type="text" class="form-control" placeholder="Name" ng-model="main.form_bookmark.name" required />
+    <input type="text" class="form-control" placeholder="URL" ng-model="main.form_bookmark.url" required />
+
+    <input type="submit" class="btn btn-default" ng-click="main.addBookmark()" value="Add" />
+  </form>
+
+  <h4>Bookmarks:</h4>
+  <div class="panel panel-default">
+    <table class="table table-hover">
+      <tbody>
+        <tr ng-repeat="bookmark in main.bookmarks">
+          <td>
+	    <a href="{{bookmark.url}}">
+	      {{bookmark.name}}
+	    </a>
+          </td>
+          <td class="text-right text-nowrap">
+            <button class="btn btn-xs btn-warning" ng-click="main.removeBookmark(bookmark)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
+        </tr>
+	<tr ng-hide="main.bookmarks.length">
+	  <td>
+	    No bookmarks!
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
