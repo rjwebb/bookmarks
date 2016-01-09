@@ -4,7 +4,22 @@
  */
 
 'use strict';
+import Bookmark from '../api/bookmark/bookmark.model';
 import User from '../api/user/user.model';
+
+Bookmark.find({}).removeAsync()
+  .then(() => {
+    Bookmark.createAsync({
+      name: 'Google',
+      url: 'https://www.google.com'
+    }, {
+      name: 'Facebook',
+      url: 'https://www.facebook.com'
+    })
+    .then(() => {
+      console.log('finished populating bookmarks');
+    });
+  });
 
 User.find({}).removeAsync()
   .then(() => {
