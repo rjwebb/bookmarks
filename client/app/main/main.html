@@ -5,3 +5,9 @@
     </a>
   </li>
 </ul>
+
+<form novalidate class="css-form">
+  Name: <input type="text" ng-model="main.form_bookmark.name" required /><br />
+  URL: <input type="text" ng-model="main.form_bookmark.url" required /><br />
+  <input type="submit" ng-click="main.addBookmark()" value="Add" />
+</form>
