@@ -31,6 +31,10 @@ class MainController {
       this.form_bookmark = {};
     }
   }
+
+  removeBookmark(bookmark) {
+    this.$http.delete('/api/bookmarks/'+ bookmark._id);
+  }
 }
 
 angular.module('bookmarksApp')
