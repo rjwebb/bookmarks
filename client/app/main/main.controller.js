@@ -1,15 +1,10 @@
 'use strict';
 
-(function() {
-
-class MainController {
-
-  constructor($http, $scope, socket) {
+angular.module('bookmarksApp')
+  .controller('MainController', ['$http', '$scope', 'socket', function ($http, $scope, socket) {
     this.$http = $http;
     this.bookmarks = [];
-    this.form_bookmark = {};
-
-    $scope.lol = 10013013;
+    this.formBookmark = {};
 
     $http.get('/api/bookmarks').then(response => {
       this.bookmarks = response.data;
@@ -19,25 +14,21 @@ class MainController {
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('bookmark');
     });
-  }
 
-  addBookmark() {
-    if(this.form_bookmark.name && this.form_bookmark.url){
-      this.$http.post('/api/bookmarks', {
-	name: this.form_bookmark.name,
-	url: this.form_bookmark.url
-      });
 
-      this.form_bookmark = {};
+    this.addBookmark = function () {
+      console.log(this.formBookmark);
+      if(this.formBookmark.name && this.formBookmark.url){
+	this.$http.post('/api/bookmarks', {
+	  name: this.formBookmark.name,
+	  url: this.formBookmark.url
+	});
+
+	this.formBookmark = {};
+      }
     }
-  }
 
-  removeBookmark(bookmark) {
-    this.$http.delete('/api/bookmarks/'+ bookmark._id);
-  }
-}
-
-angular.module('bookmarksApp')
-  .controller('MainController', MainController);
-
-})();
+    this.removeBookmark = function (bookmark) {
+      this.$http.delete('/api/bookmarks/'+ bookmark._id);
+    }
+  }]);
